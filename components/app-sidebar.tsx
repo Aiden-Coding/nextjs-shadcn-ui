@@ -49,6 +49,46 @@ const items = [
     url: "#",
     icon: Settings,
   },
+  {
+    title: "authentication",
+    url: "/examples/authentication",
+    icon: Settings,
+  },
+  {
+    title: "cards",
+    url: "/examples/cards",
+    icon: Settings,
+  },
+  {
+    title: "dashboard",
+    url: "/examples/dashboard",
+    icon: Settings,
+  },
+  {
+    title: "forms",
+    url: "/examples/forms",
+    icon: Settings,
+  },
+  {
+    title: "mail",
+    url: "/examples/mail",
+    icon: Settings,
+  },
+  {
+    title: "music",
+    url: "/examples/music",
+    icon: Settings,
+  },
+  {
+    title: "playground",
+    url: "/examples/playground",
+    icon: Settings,
+  },
+  {
+    title: "tasks",
+    url: "/examples/tasks",
+    icon: Settings,
+  },
 ];
 export function AppSidebar() {
   return (
