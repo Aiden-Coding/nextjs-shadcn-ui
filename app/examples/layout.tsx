@@ -13,10 +13,10 @@ interface ExamplesLayoutProps {
 
 export default function ExamplesLayout({ children }: ExamplesLayoutProps) {
   return (
-    <div className="container relative">
-      <section>
-        <ExamplesNav />
-        <div className="overflow-hidden rounded-[0.5rem] border bg-background shadow">
+    <div className="flex-1">
+      <section className="h-full flex flex-col">
+        {/* <ExamplesNav /> */}
+        <div className="flex-1 overflow-hidden rounded-[0.5rem] border bg-background shadow">
           {children}
         </div>
       </section>

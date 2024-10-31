@@ -41,7 +41,7 @@ export default async function RootLayout({
           defaultOpen={defaultOpen}
         >
           <AppSidebar />
-          <main className="flex flex-col h-svh">
+          <main className="flex flex-col h-svh w-svw">
             <SidebarTrigger />
             {children}
           </main>
