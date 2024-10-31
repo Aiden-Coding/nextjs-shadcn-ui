@@ -4,6 +4,7 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { cookies } from "next/headers";
+import { cn } from "@/lib/utils";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={cn("h-svh", `${geistSans.variable} ${geistMono.variable} antialiased`)}>
         <SidebarProvider
           style={{
             "--sidebar-width": "10rem",
