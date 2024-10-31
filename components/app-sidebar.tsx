@@ -1,4 +1,4 @@
-import { Calendar, ChevronDown, Home, Inbox, Search, Settings } from "lucide-react";
+import { Calendar, ChevronDown, Home, Inbox, Plus, Search, Settings } from "lucide-react";
 import { ChevronUp, User2 } from "lucide-react";
 
 import {
@@ -12,6 +12,7 @@ import {
   SidebarFooter,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarGroupAction,
 } from "@/components/ui/sidebar";
 import {
   DropdownMenu,
@@ -120,6 +121,14 @@ export function AppSidebar() {
             </CollapsibleContent>
           </SidebarGroup>
         </Collapsible>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarGroupAction title="Add Project">
+            <Plus /> <span className="sr-only">Add Project</span>
+          </SidebarGroupAction>
+          <SidebarGroupContent />
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter />
       <SidebarFooter>
