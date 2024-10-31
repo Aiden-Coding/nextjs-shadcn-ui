@@ -11,10 +11,10 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Sidebar({ className, playlists }: SidebarProps) {
   return (
     <div className={cn("pb-12", className)}>
-      <div className="space-y-4 py-4">
-        <div className="px-3 py-2">
+      <div className="">
+        <div className="px-3 ">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Discover</h2>
-          <div className="space-y-1">
+          <div className="">
             <Button variant="secondary" className="w-full justify-start">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             </Button>
           </div>
         </div>
-        <div className="px-3 py-2">
+        <div className="px-3">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Library</h2>
           <div className="space-y-1">
             <Button variant="ghost" className="w-full justify-start">
@@ -160,7 +160,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             </Button>
           </div>
         </div>
-        <div className="py-2">
+        <div className="">
           <h2 className="relative px-7 text-lg font-semibold tracking-tight">Playlists</h2>
           <ScrollArea className="h-[300px] px-1">
             <div className="space-y-1 p-2">
