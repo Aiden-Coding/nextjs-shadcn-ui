@@ -89,6 +89,11 @@ const items = [
     url: "/examples/tasks",
     icon: Settings,
   },
+  {
+    title: "tradingview",
+    url: "/examples/tradingview",
+    icon: Settings,
+  },
 ];
 export function AppSidebar() {
   return (
