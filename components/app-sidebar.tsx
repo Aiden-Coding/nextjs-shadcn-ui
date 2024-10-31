@@ -1,5 +1,8 @@
 import { Calendar, ChevronDown, Home, Inbox, Plus, Search, Settings } from "lucide-react";
 import { ChevronUp, User2 } from "lucide-react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 import {
   Sidebar,
@@ -129,10 +132,9 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
+                    <Link href={item.url}>
+                      <item.icon /> <span>{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
