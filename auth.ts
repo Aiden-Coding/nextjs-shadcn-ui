@@ -16,6 +16,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.role = user.role;
       }
+      console.log("token ", token);
       return token;
     },
     // session() se utiliza para agregar la información del token a la sesión del usuario,
@@ -24,6 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (session.user) {
         session.user.role = token.role;
       }
+      console.log("session ", session);
       return session;
     },
   },
