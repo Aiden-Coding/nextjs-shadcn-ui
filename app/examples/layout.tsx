@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 
-import { ExamplesNav } from "@/components/examples-nav";
 
 export const metadata: Metadata = {
   title: "Examples",
