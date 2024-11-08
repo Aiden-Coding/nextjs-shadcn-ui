@@ -3,7 +3,7 @@ import LogoutBtn from "@/components/auth/logout-button";
 
 export default async function DashboardPage() {
   const session = await auth();
-
+  console.log(session);
   if (!session) {
     return <div>Not authenticated</div>;
   }
