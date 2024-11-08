@@ -20,14 +20,14 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
 import { FaGithub, FaGoogle } from "react-icons/fa6";
-import ButtonSocial from "./button-social";
+import LoginBtn from "./login-button";
 
-interface FormLoginProps {
+interface LoginFormProps {
   isVerified: boolean;
   OAuthAccountNotLinked: boolean;
 }
 
-const FormLogin = ({ isVerified, OAuthAccountNotLinked }: FormLoginProps) => {
+const LoginForm = ({ isVerified, OAuthAccountNotLinked }: LoginFormProps) => {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -56,21 +56,15 @@ const FormLogin = ({ isVerified, OAuthAccountNotLinked }: FormLoginProps) => {
     <div className="max-w-52">
       <h1 className="mb-5 text-center text-2xl">Login</h1>
       {isVerified && (
-        <p className="text-center text-green-500 mb-5 text-sm">
-          Email verified, you can now login
-        </p>
+        <p className="text-center text-green-500 mb-5 text-sm">Email verified, you can now login</p>
       )}
       {OAuthAccountNotLinked && (
         <p className="text-center text-red-500 mb-5 text-sm">
-          To confirm your identity, sign in with the same account you used
-          originally.
+          To confirm your identity, sign in with the same account you used originally.
         </p>
       )}
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="email"
@@ -78,11 +72,7 @@ const FormLogin = ({ isVerified, OAuthAccountNotLinked }: FormLoginProps) => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="email"
-                    type="email"
-                    {...field}
-                  />
+                  <Input placeholder="email" type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,36 +85,29 @@ const FormLogin = ({ isVerified, OAuthAccountNotLinked }: FormLoginProps) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="password"
-                    type="password"
-                    {...field}
-                  />
+                  <Input placeholder="password" type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           {error && <FormMessage>{error}</FormMessage>}
-          <Button
-            type="submit"
-            disabled={isPending}
-          >
+          <Button type="submit" disabled={isPending}>
             Submit
           </Button>
         </form>
       </Form>
       <div className="mt-5 space-y-4">
-        <ButtonSocial provider="github">
+        <LoginBtn provider="github">
           <FaGithub className="mr-2 h-4 w-4" />
           <span>Sign in with Github</span>
-        </ButtonSocial>
-        <ButtonSocial provider="google">
+        </LoginBtn>
+        <LoginBtn provider="google">
           <FaGoogle className="mr-2 h-4 w-4" />
           <span>Sign in with Google</span>
-        </ButtonSocial>
+        </LoginBtn>
       </div>
     </div>
   );
 };
-export default FormLogin;
+export default LoginForm;

@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-const FormRegister = () => {
+const RegisterForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -49,10 +49,7 @@ const FormRegister = () => {
     <div className="max-w-52">
       <h1>Register</h1>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="name"
@@ -60,11 +57,7 @@ const FormRegister = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Name"
-                    type="text"
-                    {...field}
-                  />
+                  <Input placeholder="Name" type="text" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -77,11 +70,7 @@ const FormRegister = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="email"
-                    type="email"
-                    {...field}
-                  />
+                  <Input placeholder="email" type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,21 +83,14 @@ const FormRegister = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="password"
-                    type="password"
-                    {...field}
-                  />
+                  <Input placeholder="password" type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           {error && <FormMessage>{error}</FormMessage>}
-          <Button
-            type="submit"
-            disabled={isPending}
-          >
+          <Button type="submit" disabled={isPending}>
             Submit
           </Button>
         </form>
@@ -116,4 +98,4 @@ const FormRegister = () => {
     </div>
   );
 };
-export default FormRegister;
+export default RegisterForm;

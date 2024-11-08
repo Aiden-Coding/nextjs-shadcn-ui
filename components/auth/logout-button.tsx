@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
 
-const LogoutButton = () => {
+const LogoutBtn = () => {
   const handleClick = async () => {
     await signOut({
       callbackUrl: "/login",
@@ -12,4 +12,4 @@ const LogoutButton = () => {
 
   return <Button onClick={handleClick}>LogOut</Button>;
 };
-export default LogoutButton;
+export default LogoutBtn;

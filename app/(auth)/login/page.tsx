@@ -1,18 +1,9 @@
-import FormLogin from "@/components/form-login";
+import LoginForm from "@/components/auth/login-form";
 
-const LoginPage = ({
-  searchParams,
-}: {
-  searchParams: { verified: string; error: string };
-}) => {
+const LoginPage = ({ searchParams }: { searchParams: { verified: string; error: string } }) => {
   const isVerified = searchParams.verified === "true";
   const OAuthAccountNotLinked = searchParams.error === "OAuthAccountNotLinked";
 
-  return (
-    <FormLogin
-      isVerified={isVerified}
-      OAuthAccountNotLinked={OAuthAccountNotLinked}
-    />
-  );
+  return <LoginForm isVerified={isVerified} OAuthAccountNotLinked={OAuthAccountNotLinked} />;
 };
 export default LoginPage;

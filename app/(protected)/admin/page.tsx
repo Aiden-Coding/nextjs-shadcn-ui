@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import LogoutButton from "@/components/logout-button";
+import LogoutBtn from "@/components/auth/logout-button";
 
 const AdminPage = async () => {
   const session = await auth();
@@ -13,7 +13,7 @@ const AdminPage = async () => {
   return (
     <div className="container">
       <pre>{JSON.stringify(session, null, 2)}</pre>
-      <LogoutButton />
+      <LogoutBtn />
     </div>
   );
 };

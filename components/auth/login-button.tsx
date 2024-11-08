@@ -8,11 +8,11 @@ interface ButtonSocialProps {
   provider: string;
 }
 
-const ButtonSocial = ({ children, provider }: ButtonSocialProps) => {
+const LoginBtn = ({ children, provider }: ButtonSocialProps) => {
   const handleClick = async () => {
     await signIn(provider);
   };
 
   return <Button onClick={handleClick}>{children}</Button>;
 };
-export default ButtonSocial;
+export default LoginBtn;

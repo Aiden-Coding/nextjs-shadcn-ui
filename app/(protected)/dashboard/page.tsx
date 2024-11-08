@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import LogoutButton from "@/components/logout-button";
+import LogoutBtn from "@/components/auth/logout-button";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -11,7 +11,7 @@ export default async function DashboardPage() {
   return (
     <div className="container">
       <pre>{JSON.stringify(session, null, 2)}</pre>
-      <LogoutButton />
+      <LogoutBtn />
     </div>
   );
 }
