@@ -12,12 +12,23 @@ import { Search } from "@/app/(protected)/examples/dashboard/components/search";
 import TeamSwitcher from "@/app/(protected)/examples/dashboard/components/team-switcher";
 import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-nav";
 
+import { connectToDatabase } from "@/lib/db";
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
 };
 
 export default function DashboardPage() {
+  if (process.env.ENABLE_SQLITE === "true") {
+    const db = connectToDatabase();
+    const { name, email } = { name: "string", email: "string" };
+    const stmt = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+    const info = stmt.run(name, email);
+    console.log(info);
+
+    const users = db.prepare("SELECT * FROM users").all();
+    console.log(users);
+  }
   return (
     <>
       <div className="md:hidden">
