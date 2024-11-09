@@ -1,4 +1,5 @@
-class Base64 {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+export class Base64 {
   private _keyStr: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
   public encode(input: string): string {
@@ -67,7 +68,7 @@ class Base64 {
     string = string.replace(/\r\n/g, "\n");
     let utftext = "";
     for (let n = 0; n < string.length; n++) {
-      let c = string.charCodeAt(n);
+      const c = string.charCodeAt(n);
       if (c < 128) {
         utftext += String.fromCharCode(c);
       } else if (c > 127 && c < 2048) {
@@ -109,7 +110,7 @@ class Base64 {
   }
 }
 
-function hex_md5(s: string): string {
+export function hex_md5(s: string): string {
   return binl2hex(core_md5(str2binl(s), s.length * chrsz));
 }
 
@@ -138,7 +139,7 @@ function md5_vm_test(): boolean {
 }
 
 function core_md5(a: number[], b: number): number[] {
-  var c, d, e, f, g, h, i, j, k;
+  let c, d, e, f, g, h, i, j, k;
   for (
     a[b >> 5] |= 128 << b % 32,
       a[(((b + 64) >>> 9) << 4) + 14] = b,
@@ -222,7 +223,7 @@ function core_md5(a: number[], b: number): number[] {
       (d = safe_add(d, i)),
       (e = safe_add(e, j)),
       (f = safe_add(f, k));
-  return Array(c, d, e, f);
+  return [c, d, e, f];
 }
 
 function md5_cmn(q: number, a: number, b: number, x: number, s: number, t: number): number {
@@ -281,20 +282,20 @@ function core_hmac_md5(key: string, data: string): number[] {
   let bkey = str2binl(key);
   if (bkey.length > 16) bkey = core_md5(bkey, key.length * chrsz);
 
-  let ipad = Array<number>(16),
+  const ipad = Array<number>(16),
     opad = Array<number>(16);
   for (let i = 0; i < 16; i++) {
     ipad[i] = bkey[i] ^ 0x36363636;
     opad[i] = bkey[i] ^ 0x5c5c5c5c;
   }
 
-  let hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
+  const hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
   return core_md5(opad.concat(hash), 512 + 128);
 }
 
 function safe_add(x: number, y: number): number {
-  let lsw = (x & 0xffff) + (y & 0xffff);
-  let msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+  const lsw = (x & 0xffff) + (y & 0xffff);
+  const msw = (x >> 16) + (y >> 16) + (lsw >> 16);
   return (msw << 16) | (lsw & 0xffff);
 }
 
@@ -303,8 +304,8 @@ function bit_rol(num: number, cnt: number): number {
 }
 
 function str2binl(str: string): number[] {
-  let bin = Array<number>();
-  let mask = (1 << chrsz) - 1;
+  const bin = Array<number>();
+  const mask = (1 << chrsz) - 1;
   for (let i = 0; i < str.length * chrsz; i += chrsz) {
     bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << i % 32;
   }
@@ -313,7 +314,7 @@ function str2binl(str: string): number[] {
 
 function binl2str(bin: number[]): string {
   let str = "";
-  let mask = (1 << chrsz) - 1;
+  const mask = (1 << chrsz) - 1;
   for (let i = 0; i < bin.length * 32; i += chrsz) {
     str += String.fromCharCode((bin[i >> 5] >>> i % 32) & mask);
   }
@@ -321,7 +322,7 @@ function binl2str(bin: number[]): string {
 }
 
 function binl2hex(binarray: number[]): string {
-  let hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
+  const hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
   let str = "";
   for (let i = 0; i < binarray.length * 4; i++) {
     str +=
@@ -332,10 +333,10 @@ function binl2hex(binarray: number[]): string {
 }
 
 function binl2b64(binarray: number[]): string {
-  let tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  const tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
   let str = "";
   for (let i = 0; i < binarray.length * 4; i += 3) {
-    let triplet =
+    const triplet =
       (((binarray[i >> 2] >> (8 * (i % 4))) & 0xff) << 16) |
       (((binarray[(i + 1) >> 2] >> (8 * ((i + 1) % 4))) & 0xff) << 8) |
       ((binarray[(i + 2) >> 2] >> (8 * ((i + 2) % 4))) & 0xff);

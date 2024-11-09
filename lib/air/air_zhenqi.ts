@@ -1,25 +1,8 @@
 import { load } from "cheerio";
-import { encode_param, encode_secret, decode_result } from "./crypto";
+import { encode_param, Base64, encode_secret, decode_result, hex_md5 } from "./crypto";
+import { decryptData, out_encode_param } from "./outcrypto";
+import axios from "axios";
 
-/**
- * 处理 href 节点，检查是否包含特定字符串
- * @param href - 链接字符串
- * @returns 如果 href 包含 'monthdata.php' 则返回该字符串，否则返回 null
- */
-function has_month_data(href: string | undefined | null): string | null {
-  // 确保 href 参数存在且不为 null 或 undefined
-  if (!href) {
-    return null;
-  }
-
-  // 使用正则表达式来匹配 'monthdata.php'
-  const pattern = /monthdata\.php/;
-  if (pattern.test(href)) {
-    return href;
-  }
-
-  return null;
-}
 // 定义数据结构
 interface AirQualityData {
   序号: number;
@@ -37,7 +20,7 @@ interface AirQualityData {
 export async function air_city_table(): Promise<AirQualityData[]> {
   const url = "https://www.zq12369.com/environment.php";
   const date = "2020-05-01";
-  let result: AirQualityData[] = [];
+  const result: AirQualityData[] = [];
 
   if (date.split("-").length === 3) {
     const params = new URLSearchParams({
@@ -143,11 +126,12 @@ export async function air_quality_watch_point(
   }
 }
 
-function air_quality_hist(
+export function air_quality_hist(
   city: string = "杭州",
   period: string = "day",
   start_date: string = "20190327",
   end_date: string = "20200427"
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
   return new Promise(async (resolve, reject) => {
     try {
@@ -158,7 +142,7 @@ function air_quality_hist(
       const url = "https://www.zq12369.com/api/newzhenqiapi.php";
       const app_id = "4f0e3a273d547ce6b7147bfa7ceb4b6e";
       const method = "CETCITYPERIOD";
-      const timestamp = vm.run("new Date().getTime()");
+      const timestamp = new Date().getTime();
 
       // 创建请求体
       const p_text = JSON.stringify(
@@ -172,9 +156,7 @@ function air_quality_hist(
         0
       ).replace(/\\"/g, '"');
 
-      const secret = vm.run(
-        `hex_md5(${JSON.stringify(app_id + method + timestamp + "WEB" + p_text)})`
-      );
+      const secret = hex_md5(JSON.stringify(app_id + method + timestamp + "WEB" + p_text));
 
       const payload = {
         appId: app_id,
@@ -201,12 +183,11 @@ function air_quality_hist(
         "X-Requested-With": "XMLHttpRequest",
       };
 
-      const params = { param: vm.run(`encode_param(${JSON.stringify(need)})`) };
-
+      const params = { param: out_encode_param(JSON.stringify(need)) };
       const response = await axios.post(url, null, { params, headers });
-
-      const temp_text = vm.run(`decryptData(${JSON.stringify(response.data)})`);
-      const dataJson = JSON.parse(vm.run(`b.decode(${JSON.stringify(temp_text)})`));
+      console.log("pae", response);
+      const temp_text = decryptData(JSON.stringify(response.data));
+      const dataJson = JSON.parse(new Base64().decode(JSON.stringify(temp_text)));
 
       // 转换为类似 pandas DataFrame 的结构
       const tempDf = dataJson.result.data.rows.map((row: any) => ({
