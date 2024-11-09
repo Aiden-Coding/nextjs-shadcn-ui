@@ -155,8 +155,7 @@ export function air_quality_hist(
         null,
         0
       ).replace(/\\"/g, '"');
-
-      const secret = hex_md5(JSON.stringify(app_id + method + timestamp + "WEB" + p_text));
+      const secret = hex_md5(app_id + method + timestamp + ".0" + "WEB" + p_text);
 
       const payload = {
         appId: app_id,
@@ -171,7 +170,6 @@ export function air_quality_hist(
         },
         secret: secret,
       };
-
       const need = JSON.stringify(payload, null, 0)
         .replace(/\\"/g, '"')
         .replace(/\\p": /g, 'p":')
@@ -183,11 +181,16 @@ export function air_quality_hist(
         "X-Requested-With": "XMLHttpRequest",
       };
 
-      const params = { param: out_encode_param(JSON.stringify(need)) };
+      const params = { param: out_encode_param(need) };
+
+      console.log(params);
       const response = await axios.post(url, null, { params, headers });
-      console.log("pae", response);
-      const temp_text = decryptData(JSON.stringify(response.data));
-      const dataJson = JSON.parse(new Base64().decode(JSON.stringify(temp_text)));
+
+      const sdd = response.data;
+      console.log("response", sdd);
+      const temp_text = decryptData(sdd);
+      console.log("pae", new Base64().decode(temp_text));
+      const dataJson = JSON.parse(new Base64().decode(temp_text));
 
       // 转换为类似 pandas DataFrame 的结构
       const tempDf = dataJson.result.data.rows.map((row: any) => ({
