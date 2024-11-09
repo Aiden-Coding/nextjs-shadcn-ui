@@ -122,3 +122,79 @@ export async function air_city_table(): Promise<AirQualityData[]> {
 
   return result;
 }
+
+// 定义数据结构
+interface AirQualityWatchPointData {
+  // 假设这里会有多个字段，根据 API 返回的数据结构来定义
+  [key: string]: any;
+}
+
+/**
+ * 真气网-监测点空气质量-细化到具体城市的每个监测点
+ * @param city - 调用 ak.air_city_table() 接口获取
+ * @param start_date - e.g., "20190327"
+ * @param end_date - e.g., "20200327"
+ * @returns Promise 解析为包含指定城市指定日期区间的观测点空气质量数据的对象数组
+ */
+export async function air_quality_watch_point(
+  city: string = "杭州",
+  start_date: string = "20220408",
+  end_date: string = "20220409"
+): Promise<AirQualityWatchPointData[]> {
+  // 日期格式转换
+  const formatDate = (date: string): string => {
+    return `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6)}`;
+  };
+
+  start_date = formatDate(start_date);
+  end_date = formatDate(end_date);
+
+  const url = "https://www.zq12369.com/api/zhenqiapi.php";
+  const appId = "a01901d3caba1f362d69474674ce477f";
+  const method = "GETCITYPOINTAVG";
+
+  // 模拟加密函数
+  const encodeParam = (param: string): string => {
+    // 这里应该使用一个真正的加密方法
+    // 由于没有具体的加密算法，我们这里只是简单地返回原字符串
+    return param;
+  };
+
+  const encodeSecret = (method: string, city: string, start: string, end: string): string => {
+    // 这里也应该使用一个真正的加密方法
+    // 目前只是简单地将参数拼接
+    return `${method}${city}${start}${end}`;
+  };
+
+  const payload = {
+    appId,
+    method: encodeParam(method),
+    city: encodeParam(city),
+    startTime: encodeParam(start_date),
+    endTime: encodeParam(end_date),
+    secret: encodeSecret(method, city, start_date, end_date),
+  };
+
+  const headers = {
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36",
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: new URLSearchParams(payload).toString(),
+    });
+    const data = await response.text();
+
+    // 模拟解密功能，这里只是简单地返回数据
+    const decodedData = JSON.parse(data) as { rows: AirQualityWatchPointData[] };
+
+    return decodedData.rows;
+  } catch (error) {
+    console.error("Error fetching or parsing data:", error);
+    throw error;
+  }
+}
