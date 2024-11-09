@@ -1,7 +1,5 @@
 import { load } from "cheerio";
 import { encode_param, Base64, encode_secret, decode_result, hex_md5 } from "./crypto";
-import { decryptData, out_encode_param } from "./outcrypto";
-import axios from "axios";
 
 // 定义数据结构
 interface AirQualityData {
@@ -125,6 +123,27 @@ export async function air_quality_watch_point(
     throw error;
   }
 }
+import * as path from "path";
+
+import * as fs from "fs";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function loadAndExecuteJS(functionName: string, ...args: any[]) {
+  const jsContent = fs.readFileSync(path.resolve(process.cwd(), "lib/air/outcrypto.js"), "utf-8");
+
+  // 将 JavaScript 代码包裹在一个函数中，以便我们可以调用它
+  const jsFunction = new Function(
+    `return function ${functionName}(param) { ${jsContent}; return ${functionName}(param); }`
+  )();
+
+  // 调用函数并传递参数
+  if (typeof jsFunction === "function") {
+    const result = jsFunction(...args);
+    console.log(result); // 输出结果
+    return result;
+  } else {
+    console.error(`Function '${functionName}' not found in the script.`);
+  }
+}
 
 export function air_quality_hist(
   city: string = "杭州",
@@ -155,7 +174,7 @@ export function air_quality_hist(
         null,
         0
       ).replace(/\\"/g, '"');
-      const secret = hex_md5(app_id + method + timestamp + ".0" + "WEB" + p_text);
+      const secret = hex_md5(app_id + method + timestamp + "WEB" + p_text);
 
       const payload = {
         appId: app_id,
@@ -181,14 +200,19 @@ export function air_quality_hist(
         "X-Requested-With": "XMLHttpRequest",
       };
 
-      const params = { param: out_encode_param(need) };
+      const params = { param: loadAndExecuteJS("encode_param", need) };
 
       console.log(params);
-      const response = await axios.post(url, null, { params, headers });
 
-      const sdd = response.data;
-      console.log("response", sdd);
-      const temp_text = decryptData(sdd);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: new URLSearchParams(params).toString(),
+      });
+      const data1 = await response.text();
+
+      const temp_text = loadAndExecuteJS("decryptData", data1);
+      console.log("response", temp_text);
       console.log("pae", new Base64().decode(temp_text));
       const dataJson = JSON.parse(new Base64().decode(temp_text));
 
