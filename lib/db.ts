@@ -1,10 +1,17 @@
 import path from "path";
 import Database from "better-sqlite3";
+import * as fs from "fs";
 
 let db: Database.Database | null = null;
 
 export function connectToDatabase(): Database.Database {
   if (db === null) {
+    if (fs.existsSync(path.join(process.cwd(), "db_store"))) {
+      console.log("Folder exists");
+    } else {
+      fs.mkdirSync(path.join(process.cwd(), "db_store"));
+      console.log("Folder does not exist");
+    }
     console.log("connectToDatabase", "ind");
     const dbPath = path.join(process.cwd(), "db_store/database.db");
     db = new Database(dbPath);
