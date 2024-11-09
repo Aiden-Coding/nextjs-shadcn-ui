@@ -117,6 +117,7 @@ export async function air_quality_watch_point(
     endTime: encode_param(end_date),
     secret: encode_secret(method, city_param, start_date, end_date),
   };
+  console.log(payload);
 
   const headers = {
     "User-Agent":
