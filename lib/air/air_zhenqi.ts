@@ -138,7 +138,6 @@ function loadAndExecuteJS(functionName: string, ...args: any[]) {
   // 调用函数并传递参数
   if (typeof jsFunction === "function") {
     const result = jsFunction(...args);
-    console.log(result); // 输出结果
     return result;
   } else {
     console.error(`Function '${functionName}' not found in the script.`);
@@ -174,8 +173,9 @@ export function air_quality_hist(
         null,
         0
       ).replace(/\\"/g, '"');
-      const secret = hex_md5(app_id + method + timestamp + "WEB" + p_text);
 
+      console.log("p_text", p_text);
+      const secret = loadAndExecuteJS("hex_md5", app_id + method + timestamp + "WEB" + p_text);
       const payload = {
         appId: app_id,
         method: method,
@@ -189,11 +189,13 @@ export function air_quality_hist(
         },
         secret: secret,
       };
+      console.log("payload", payload);
       const need = JSON.stringify(payload, null, 0)
         .replace(/\\"/g, '"')
         .replace(/\\p": /g, 'p":')
         .replace(/\\t": /g, 't":');
 
+      console.log("need", need);
       const headers = {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
@@ -202,7 +204,7 @@ export function air_quality_hist(
 
       const params = { param: loadAndExecuteJS("encode_param", need) };
 
-      console.log(params);
+      console.log("params", params);
 
       const response = await fetch(url, {
         method: "POST",
@@ -210,7 +212,7 @@ export function air_quality_hist(
         body: new URLSearchParams(params).toString(),
       });
       const data1 = await response.text();
-
+      console.log("response.data", data1);
       const temp_text = loadAndExecuteJS("decryptData", data1);
       console.log("response", temp_text);
       console.log("pae", new Base64().decode(temp_text));
