@@ -1,50 +1,5 @@
-import * as fs from "fs";
-import * as path from "path";
 import { load } from "cheerio";
-
-/**
- * 获取 JS 文件的路径(从模块所在目录查找)
- * @param name - 文件名
- * @param moduleFile - 模块路径
- * @returns 路径
- */
-function _get_js_path(name: string | null = null, moduleFile: string | null = null): string {
-  if (!name || !moduleFile) {
-    throw new Error("Both name and moduleFile must be provided");
-  }
-
-  // 获取模块所在的目录的绝对路径
-  const moduleFolder = path.resolve(path.dirname(path.dirname(moduleFile)));
-
-  // 构建到 air 文件夹的路径
-  const moduleJsonPath = path.join(moduleFolder, "air", name);
-
-  return moduleJsonPath;
-}
-
-/**
- * 获取 JS 文件的内容
- * @param fileName - JS 文件名
- * @returns 文件内容
- */
-function _get_file_content(fileName: string = "crypto.js"): string {
-  // 确保文件名不为空
-  if (!fileName) {
-    throw new Error("File name must be provided");
-  }
-
-  // 使用 Node.js 的 __filename 来获取当前文件的路径
-  const filePath = path.join(path.dirname(path.dirname(__filename)), "air", fileName);
-
-  try {
-    // 读取文件内容
-    const fileData = fs.readFileSync(filePath, "utf8");
-    return fileData;
-  } catch (error) {
-    // 如果读取文件失败，抛出错误
-    throw new Error(`Failed to read file: ${error.message}`);
-  }
-}
+import { encode_param, encode_secret } from "./crypto";
 
 /**
  * 处理 href 节点，检查是否包含特定字符串
@@ -153,26 +108,14 @@ export async function air_quality_watch_point(
   const appId = "a01901d3caba1f362d69474674ce477f";
   const method = "GETCITYPOINTAVG";
 
-  // 模拟加密函数
-  const encodeParam = (param: string): string => {
-    // 这里应该使用一个真正的加密方法
-    // 由于没有具体的加密算法，我们这里只是简单地返回原字符串
-    return param;
-  };
-
-  const encodeSecret = (method: string, city: string, start: string, end: string): string => {
-    // 这里也应该使用一个真正的加密方法
-    // 目前只是简单地将参数拼接
-    return `${method}${city}${start}${end}`;
-  };
-
+  const city_param = encode_param(city);
   const payload = {
     appId,
-    method: encodeParam(method),
-    city: encodeParam(city),
-    startTime: encodeParam(start_date),
-    endTime: encodeParam(end_date),
-    secret: encodeSecret(method, city, start_date, end_date),
+    method: encode_param(method),
+    city: city_param,
+    startTime: encode_param(start_date),
+    endTime: encode_param(end_date),
+    secret: encode_secret(method, city_param, start_date, end_date),
   };
 
   const headers = {
@@ -187,6 +130,7 @@ export async function air_quality_watch_point(
       headers: headers,
       body: new URLSearchParams(payload).toString(),
     });
+    console.log(response);
     const data = await response.text();
 
     // 模拟解密功能，这里只是简单地返回数据
