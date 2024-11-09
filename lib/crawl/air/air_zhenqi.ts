@@ -1,6 +1,10 @@
 import { load } from "cheerio";
 import { encode_param, Base64, encode_secret, decode_result } from "./crypto";
 
+import * as path from "path";
+import { loadAndExecuteJS } from "@/lib/utils";
+const outcrypto_js_path = path.resolve(process.cwd(), "lib/crawl/air/outcrypto.js");
+
 // 定义数据结构
 interface AirQualityData {
   序号: number;
@@ -122,29 +126,6 @@ export async function air_quality_watch_point(
     throw error;
   }
 }
-import * as path from "path";
-
-import * as fs from "fs";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function loadAndExecuteJS(functionName: string, ...args: any[]) {
-  const jsContent = fs.readFileSync(
-    path.resolve(process.cwd(), "lib/crawl/air/outcrypto.js"),
-    "utf-8"
-  );
-
-  // 将 JavaScript 代码包裹在一个函数中，以便我们可以调用它
-  const jsFunction = new Function(
-    `return function ${functionName}(param) { ${jsContent}; return ${functionName}(param); }`
-  )();
-
-  // 调用函数并传递参数
-  if (typeof jsFunction === "function") {
-    const result = jsFunction(...args);
-    return result;
-  } else {
-    console.error(`Function '${functionName}' not found in the script.`);
-  }
-}
 
 export function air_quality_hist(
   city: string = "杭州",
@@ -176,7 +157,11 @@ export function air_quality_hist(
         0
       ).replace(/\\"/g, '"');
 
-      const secret = loadAndExecuteJS("hex_md5", app_id + method + timestamp + "WEB" + p_text);
+      const secret = loadAndExecuteJS(
+        outcrypto_js_path,
+        "hex_md5",
+        app_id + method + timestamp + "WEB" + p_text
+      );
       const payload = {
         appId: app_id,
         method: method,
@@ -202,7 +187,7 @@ export function air_quality_hist(
         "Content-Type": "application/x-www-form-urlencoded",
       };
 
-      const params = { param: loadAndExecuteJS("encode_param", need) };
+      const params = { param: loadAndExecuteJS(outcrypto_js_path, "encode_param", need) };
 
       const response = await fetch(url, {
         method: "POST",
@@ -211,7 +196,7 @@ export function air_quality_hist(
       });
 
       const data1 = await response.text();
-      const temp_text = loadAndExecuteJS("decryptData", data1);
+      const temp_text = loadAndExecuteJS(outcrypto_js_path, "decryptData", data1);
       const dataJson = JSON.parse(new Base64().decode(temp_text));
 
       // 转换为类似 pandas DataFrame 的结构
