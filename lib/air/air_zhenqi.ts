@@ -142,3 +142,81 @@ export async function air_quality_watch_point(
     throw error;
   }
 }
+
+function air_quality_hist(
+  city: string = "杭州",
+  period: string = "day",
+  start_date: string = "20190327",
+  end_date: string = "20200427"
+): Promise<any> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // 格式化日期
+      start_date = `${start_date.slice(0, 4)}-${start_date.slice(4, 6)}-${start_date.slice(6)}`;
+      end_date = `${end_date.slice(0, 4)}-${end_date.slice(4, 6)}-${end_date.slice(6)}`;
+
+      const url = "https://www.zq12369.com/api/newzhenqiapi.php";
+      const app_id = "4f0e3a273d547ce6b7147bfa7ceb4b6e";
+      const method = "CETCITYPERIOD";
+      const timestamp = vm.run("new Date().getTime()");
+
+      // 创建请求体
+      const p_text = JSON.stringify(
+        {
+          city: city,
+          endTime: `${end_date} 23:45:39`,
+          startTime: `${start_date} 00:00:00`,
+          type: period.toUpperCase(),
+        },
+        null,
+        0
+      ).replace(/\\"/g, '"');
+
+      const secret = vm.run(
+        `hex_md5(${JSON.stringify(app_id + method + timestamp + "WEB" + p_text)})`
+      );
+
+      const payload = {
+        appId: app_id,
+        method: method,
+        timestamp: timestamp,
+        clienttype: "WEB",
+        object: {
+          city: city,
+          type: period.toUpperCase(),
+          startTime: `${start_date} 00:00:00`,
+          endTime: `${end_date} 23:45:39`,
+        },
+        secret: secret,
+      };
+
+      const need = JSON.stringify(payload, null, 0)
+        .replace(/\\"/g, '"')
+        .replace(/\\p": /g, 'p":')
+        .replace(/\\t": /g, 't":');
+
+      const headers = {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+      };
+
+      const params = { param: vm.run(`encode_param(${JSON.stringify(need)})`) };
+
+      const response = await axios.post(url, null, { params, headers });
+
+      const temp_text = vm.run(`decryptData(${JSON.stringify(response.data)})`);
+      const dataJson = JSON.parse(vm.run(`b.decode(${JSON.stringify(temp_text)})`));
+
+      // 转换为类似 pandas DataFrame 的结构
+      const tempDf = dataJson.result.data.rows.map((row: any) => ({
+        ...row,
+        time: row.time,
+      }));
+
+      resolve(tempDf);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
