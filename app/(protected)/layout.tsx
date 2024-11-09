@@ -15,6 +15,7 @@ interface ExamplesLayoutProps {
 export default async function ExamplesLayout({ children }: ExamplesLayoutProps) {
   const cookieStore = await cookies();
   const sidebarStatus = cookieStore.get("sidebar:state");
+  console.log(sidebarStatus);
   const defaultSidebarOpen = sidebarStatus ? sidebarStatus.value === "true" : true;
   console.log(defaultSidebarOpen);
   return (
