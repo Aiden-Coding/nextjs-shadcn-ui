@@ -2,8 +2,8 @@
 
 import { PolarAngleAxis, RadialBar, RadialBarChart } from "recharts";
 
-import { Card, CardContent } from "@/app/(protected)//ui/card";
-import { ChartContainer } from "@/app/(protected)//ui/chart";
+import { Card, CardContent } from "@/components/ui/card";
+import { ChartContainer } from "@/components/ui/chart";
 
 export default function Component() {
   return (

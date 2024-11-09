@@ -2,14 +2,8 @@
 
 import { Bar, BarChart, Rectangle, XAxis } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/app/(protected)//ui/card";
-import { ChartContainer } from "@/app/(protected)//ui/chart";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartContainer } from "@/components/ui/chart";
 
 export default function Component() {
   return (

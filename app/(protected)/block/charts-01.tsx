@@ -26,9 +26,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/app/(protected)//ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/app/(protected)//ui/chart";
-import { Separator } from "@/app/(protected)//ui/separator";
+} from "@/components/ui/card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Separator } from "@/components/ui/separator";
 
 export default function Charts() {
   return (

@@ -9,8 +9,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/app/(protected)//ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/app/(protected)//ui/chart";
+} from "@/components/ui/card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 export default function Component() {
   return (
