@@ -4,6 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
+import LogoutBtn from "@/components/auth/logout-button";
 import {
   Sidebar,
   SidebarContent,
@@ -196,7 +197,7 @@ export function AppSidebar() {
                   <span>Billing</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <span>Sign out</span>
+                  <LogoutBtn />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

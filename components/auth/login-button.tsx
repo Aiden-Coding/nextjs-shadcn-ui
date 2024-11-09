@@ -14,7 +14,7 @@ const LoginBtn = ({ children, provider }: ButtonSocialProps) => {
   };
 
   return (
-    <Button onClick={handleClick} className="w-full">
+    <Button onClick={handleClick} variant="outline" className="w-full">
       {children}
     </Button>
   );
