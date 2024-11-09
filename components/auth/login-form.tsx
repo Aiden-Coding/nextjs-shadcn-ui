@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { loginAction } from "@/actions/auth-action";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,61 +54,63 @@ const LoginForm = ({ isVerified, OAuthAccountNotLinked }: LoginFormProps) => {
   }
 
   return (
-    <div className="max-w-52">
-      <h1 className="mb-5 text-center text-2xl">Login</h1>
-      {isVerified && (
-        <p className="text-center text-green-500 mb-5 text-sm">Email verified, you can now login</p>
-      )}
-      {OAuthAccountNotLinked && (
-        <p className="text-center text-red-500 mb-5 text-sm">
-          To confirm your identity, sign in with the same account you used originally.
-        </p>
-      )}
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="email" type="email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input placeholder="password" type="password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {error && <FormMessage>{error}</FormMessage>}
-          <Button type="submit" disabled={isPending}>
-            Submit
-          </Button>
-        </form>
-      </Form>
-      <div className="mt-5 space-y-4">
-        <LoginBtn provider="github">
-          <FaGithub className="mr-2 h-4 w-4" />
-          <span>Sign in with Github</span>
-        </LoginBtn>
-        <LoginBtn provider="google">
-          <FaGoogle className="mr-2 h-4 w-4" />
-          <span>Sign in with Google</span>
-        </LoginBtn>
-      </div>
-    </div>
+    <Card className="mx-auto max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl">Login</CardTitle>
+        {isVerified && <CardDescription> Email verified, you can now login</CardDescription>}
+        {OAuthAccountNotLinked && (
+          <CardDescription>
+            To confirm your identity, sign in with the same account you used originally.
+          </CardDescription>
+        )}
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="email" type="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="password" type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {error && <FormMessage>{error}</FormMessage>}
+            <Button type="submit" disabled={isPending} className="w-full">
+              Submit
+            </Button>
+          </form>
+        </Form>
+        <div className="mt-5 space-y-4">
+          <LoginBtn provider="github">
+            <FaGithub className="mr-2 h-4 w-full" />
+            <span>Sign in with Github</span>
+          </LoginBtn>
+          <LoginBtn provider="google">
+            <FaGoogle className="mr-2 h-4 w-4" />
+            <span>Sign in with Google</span>
+          </LoginBtn>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 export default LoginForm;

@@ -13,6 +13,10 @@ const LoginBtn = ({ children, provider }: ButtonSocialProps) => {
     await signIn(provider);
   };
 
-  return <Button onClick={handleClick}>{children}</Button>;
+  return (
+    <Button onClick={handleClick} className="w-full">
+      {children}
+    </Button>
+  );
 };
 export default LoginBtn;
