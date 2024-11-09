@@ -56,13 +56,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-export const description =
-  "An products dashboard with a sidebar navigation. The sidebar has icon navigation. The content area has a breadcrumb and search in the header. It displays a list of products in a table with actions.";
-
-export const iframeHeight = "820px";
-
-export const containerClassName = "w-full h-full";
-
 export default function Dashboard() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">

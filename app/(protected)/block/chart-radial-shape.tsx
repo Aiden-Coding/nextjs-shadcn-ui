@@ -13,8 +13,6 @@ import {
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 
-export const description = "A radial chart with a custom shape";
-
 const chartData = [{ browser: "safari", visitors: 1260, fill: "var(--color-safari)" }];
 
 const chartConfig = {

@@ -18,8 +18,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A radar chart with a grid and circle fill";
-
 const chartData = [
   { month: "January", desktop: 186 },
   { month: "February", desktop: 305 },

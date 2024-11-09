@@ -20,8 +20,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "An area chart with icons";
-
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },

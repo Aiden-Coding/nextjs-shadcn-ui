@@ -18,8 +18,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A line chart with custom dots";
-
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },

@@ -5,13 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export const description =
-  "A sign up form with first name, last name, email and password inside a card. There's an option to sign up with GitHub and a link to login if you already have an account";
-
-export const iframeHeight = "600px";
-
-export const containerClassName = "w-full h-screen flex items-center justify-center px-4";
-
 export default function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm">

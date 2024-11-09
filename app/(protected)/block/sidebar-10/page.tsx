@@ -9,10 +9,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-export const iframeHeight = "800px";
-
-export const description = "A sidebar in a popover.";
-
 export default function Page() {
   return (
     <SidebarProvider>

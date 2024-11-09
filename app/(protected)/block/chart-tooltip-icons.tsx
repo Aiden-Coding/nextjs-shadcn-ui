@@ -11,8 +11,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A stacked bar chart with a legend";
-
 const chartData = [
   { date: "2024-07-15", running: 450, swimming: 300 },
   { date: "2024-07-16", running: 380, swimming: 420 },

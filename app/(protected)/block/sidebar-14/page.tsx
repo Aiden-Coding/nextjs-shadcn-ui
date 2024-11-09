@@ -9,10 +9,6 @@ import {
 } from "@/components/ui/breadcrumb";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-export const iframeHeight = "800px";
-
-export const description = "A sidebar on the right.";
-
 export default function Page() {
   return (
     <SidebarProvider>

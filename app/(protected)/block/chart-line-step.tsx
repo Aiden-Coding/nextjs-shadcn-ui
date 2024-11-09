@@ -18,8 +18,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A line chart with step";
-
 const chartData = [
   { month: "January", desktop: 186 },
   { month: "February", desktop: 305 },

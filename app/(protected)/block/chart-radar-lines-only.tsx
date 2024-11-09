@@ -18,8 +18,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A radar chart with lines only";
-
 const chartData = [
   { month: "January", desktop: 186, mobile: 160 },
   { month: "February", desktop: 185, mobile: 170 },

@@ -19,8 +19,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A pie chart with stacked sections";
-
 const desktopData = [
   { month: "january", desktop: 186, fill: "var(--color-january)" },
   { month: "february", desktop: 305, fill: "var(--color-february)" },
