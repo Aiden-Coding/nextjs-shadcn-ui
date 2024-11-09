@@ -98,7 +98,6 @@ export async function air_quality_watch_point(
     endTime: encode_param(end_date),
     secret: encode_secret(method, city_param, start_date, end_date),
   };
-  console.log(payload);
 
   const headers = {
     "User-Agent":
@@ -174,7 +173,6 @@ export function air_quality_hist(
         0
       ).replace(/\\"/g, '"');
 
-      console.log("p_text", p_text);
       const secret = loadAndExecuteJS("hex_md5", app_id + method + timestamp + "WEB" + p_text);
       const payload = {
         appId: app_id,
@@ -189,13 +187,11 @@ export function air_quality_hist(
         },
         secret: secret,
       };
-      console.log("payload", payload);
       const need = JSON.stringify(payload, null, 0)
         .replace(/\\"/g, '"')
         .replace(/\\p": /g, 'p":')
         .replace(/\\t": /g, 't":');
 
-      console.log("need", need);
       const headers = {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
@@ -205,20 +201,14 @@ export function air_quality_hist(
 
       const params = { param: loadAndExecuteJS("encode_param", need) };
 
-      console.log("params", params);
-
       const response = await fetch(url, {
         method: "POST",
         headers: headers,
         body: new URLSearchParams(params).toString(),
       });
 
-      console.log("response.data", response.headers);
       const data1 = await response.text();
-      console.log("response.data", data1);
       const temp_text = loadAndExecuteJS("decryptData", data1);
-      console.log("response", temp_text);
-      console.log("pae", new Base64().decode(temp_text));
       const dataJson = JSON.parse(new Base64().decode(temp_text));
 
       // 转换为类似 pandas DataFrame 的结构
