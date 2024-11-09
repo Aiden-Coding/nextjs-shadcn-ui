@@ -361,7 +361,7 @@ export function encode_secret(...args: string[]): string {
   return hex_md5(a);
 }
 
-function decode_result(a: string): string {
+export function decode_result(a: string): string {
   const b = new Base64();
   return b.decode(b.decode(b.decode(a)));
 }

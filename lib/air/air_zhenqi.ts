@@ -1,5 +1,5 @@
 import { load } from "cheerio";
-import { encode_param, encode_secret } from "./crypto";
+import { encode_param, encode_secret, decode_result } from "./crypto";
 
 /**
  * 处理 href 节点，检查是否包含特定字符串
@@ -131,11 +131,10 @@ export async function air_quality_watch_point(
       headers: headers,
       body: new URLSearchParams(payload).toString(),
     });
-    console.log(response);
     const data = await response.text();
 
     // 模拟解密功能，这里只是简单地返回数据
-    const decodedData = JSON.parse(data) as { rows: AirQualityWatchPointData[] };
+    const decodedData = JSON.parse(decode_result(data)) as { rows: AirQualityWatchPointData[] };
 
     return decodedData.rows;
   } catch (error) {
