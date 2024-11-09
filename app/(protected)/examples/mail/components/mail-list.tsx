@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Mail } from "@/app/examples/mail/data";
-import { useMail } from "@/app/examples/mail/use-mail";
+import { Mail } from "@/app/(protected)/examples/mail/data";
+import { useMail } from "@/app/(protected)/examples/mail/use-mail";
 
 interface MailListProps {
   items: Mail[];

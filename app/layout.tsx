@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { cookies } from "next/headers";
+
 import { cn } from "@/lib/utils";
 
 const geistSans = localFont({
@@ -27,27 +27,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const sidebarStatus = cookieStore.get("sidebar:state");
-  const defaultOpen = sidebarStatus ? sidebarStatus.value === "true" : "true";
-  console.log(defaultOpen);
-
   return (
     <html lang="en">
       <body className={cn("h-svh", `${geistSans.variable} ${geistMono.variable} antialiased`)}>
-        <SidebarProvider
-          style={{
-            "--sidebar-width": "10rem",
-            "--sidebar-width-mobile": "10rem",
-          }}
-          defaultOpen={defaultOpen}
-        >
-          <AppSidebar />
-          <main className="flex flex-col h-svh w-svw">
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+        <main className="flex flex-col h-svh w-svw">{children}</main>
       </body>
     </html>
   );

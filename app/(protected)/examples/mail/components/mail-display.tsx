@@ -24,7 +24,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Mail } from "@/app/examples/mail/data";
+import { Mail } from "@/app/(protected)/examples/mail/data";
 
 interface MailDisplayProps {
   mail: Mail | null;

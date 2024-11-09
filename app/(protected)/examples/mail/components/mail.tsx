@@ -21,12 +21,12 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AccountSwitcher } from "@/app/examples/mail/components/account-switcher";
-import { MailDisplay } from "@/app/examples/mail/components/mail-display";
-import { MailList } from "@/app/examples/mail/components/mail-list";
-import { Nav } from "@/app/examples/mail/components/nav";
-import { type Mail } from "@/app/examples/mail/data";
-import { useMail } from "@/app/examples/mail/use-mail";
+import { AccountSwitcher } from "@/app/(protected)/examples/mail/components/account-switcher";
+import { MailDisplay } from "@/app/(protected)/examples/mail/components/mail-display";
+import { MailList } from "@/app/(protected)/examples/mail/components/mail-list";
+import { Nav } from "@/app/(protected)/examples/mail/components/nav";
+import { type Mail } from "@/app/(protected)/examples/mail/data";
+import { useMail } from "@/app/(protected)/examples/mail/use-mail";
 
 interface MailProps {
   accounts: {
