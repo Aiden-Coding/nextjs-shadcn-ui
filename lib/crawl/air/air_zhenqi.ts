@@ -127,7 +127,10 @@ import * as path from "path";
 import * as fs from "fs";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function loadAndExecuteJS(functionName: string, ...args: any[]) {
-  const jsContent = fs.readFileSync(path.resolve(process.cwd(), "lib/air/outcrypto.js"), "utf-8");
+  const jsContent = fs.readFileSync(
+    path.resolve(process.cwd(), "lib/crawl/air/outcrypto.js"),
+    "utf-8"
+  );
 
   // 将 JavaScript 代码包裹在一个函数中，以便我们可以调用它
   const jsFunction = new Function(
