@@ -200,6 +200,7 @@ export function air_quality_hist(
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/x-www-form-urlencoded",
       };
 
       const params = { param: loadAndExecuteJS("encode_param", need) };
@@ -211,6 +212,8 @@ export function air_quality_hist(
         headers: headers,
         body: new URLSearchParams(params).toString(),
       });
+
+      console.log("response.data", response.headers);
       const data1 = await response.text();
       console.log("response.data", data1);
       const temp_text = loadAndExecuteJS("decryptData", data1);
