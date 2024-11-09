@@ -21,7 +21,6 @@ export async function airQualityHebei(symbol: string = ""): Promise<AirQualityDa
   try {
     const response = await axios.get(url, { params });
     const jsonData = response.data;
-
     const cityList = jsonData.cityPublishDatas.map((item: any) => item.CityName);
     const outerData: AirQualityData[] = [];
 
