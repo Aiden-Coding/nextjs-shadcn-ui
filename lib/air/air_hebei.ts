@@ -12,7 +12,7 @@ interface AirQualityData {
   level: string;
 }
 
-export async function airQualityHebei(symbol: string = ""): Promise<AirQualityData[]> {
+export async function air_quality_hebei(symbol: string = ""): Promise<AirQualityData[]> {
   const url = "http://110.249.223.67/server/api/CityPublishInfo/GetProvinceAndCityPublishData";
   const params = {
     publishDate: `${DateTime.now().toFormat("yyyy-MM-dd")} 16:00:00`,
