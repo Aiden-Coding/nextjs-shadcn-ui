@@ -21,13 +21,7 @@ export default async function ExamplesLayout({ children }: ExamplesLayoutProps) 
   return (
     <div className="flex-1">
       <section className="h-full flex flex-col">
-        <SidebarProvider
-          style={{
-            "--sidebar-width": "10rem",
-            "--sidebar-width-mobile": "10rem",
-          }}
-          defaultOpen={defaultSidebarOpen}
-        >
+        <SidebarProvider defaultOpen={defaultSidebarOpen}>
           <AppSidebar />
           <div className="flex-1 overflow-hidden rounded-[0.5rem] border bg-background shadow flex flex-col">
             <SidebarTrigger />
