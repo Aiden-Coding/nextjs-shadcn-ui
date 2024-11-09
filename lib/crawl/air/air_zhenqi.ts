@@ -1,5 +1,5 @@
 import { load } from "cheerio";
-import { encode_param, Base64, encode_secret, decode_result, hex_md5 } from "./crypto";
+import { encode_param, Base64, encode_secret, decode_result } from "./crypto";
 
 // 定义数据结构
 interface AirQualityData {
