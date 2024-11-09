@@ -217,3 +217,103 @@ export function air_quality_hist(
     }
   });
 }
+interface AirQualityData {
+  [key: string]: string | number;
+}
+
+export async function air_quality_rank(date: string = ""): Promise<AirQualityData[]> {
+  let formattedDate = date;
+  if (date.length === 4) {
+    formattedDate = date;
+  } else if (date.length === 6) {
+    formattedDate = `${date.slice(0, 4)}-${date.slice(4)}`;
+  } else if (date === "") {
+    formattedDate = "实时";
+  } else {
+    formattedDate = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6)}`;
+  }
+
+  const url = "https://www.zq12369.com/environment.php";
+  let params: { [key: string]: string } = {};
+
+  if (formattedDate.split("-").length === 3) {
+    params = {
+      date: formattedDate,
+      tab: "rank",
+      order: "DESC",
+      type: "DAY",
+    };
+  } else if (formattedDate.split("-").length === 2) {
+    params = {
+      month: formattedDate,
+      tab: "rank",
+      order: "DESC",
+      type: "MONTH",
+    };
+  } else if (formattedDate.split("-").length === 1 && formattedDate !== "实时") {
+    params = {
+      year: formattedDate,
+      tab: "rank",
+      order: "DESC",
+      type: "YEAR",
+    };
+  } else if (formattedDate === "实时") {
+    params = {
+      tab: "rank",
+      order: "DESC",
+      type: "MONTH",
+    };
+  }
+
+  const queryString = new URLSearchParams(params).toString();
+  const fullUrl = `${url}?${queryString}`;
+  console.log(fullUrl);
+  try {
+    const response = await fetch(fullUrl);
+    const html = await response.text();
+    const $ = load(html);
+
+    // 确定表格索引
+    const tableIndex =
+      formattedDate === "实时"
+        ? 1
+        : formattedDate.split("-").length === 3
+        ? 2
+        : formattedDate.split("-").length === 2
+        ? 3
+        : 4;
+
+    console.log(tableIndex);
+    const table = $("table").eq(tableIndex);
+
+    // 提取表头
+    const headers = table
+      .find("tr")
+      .eq(0)
+      .find("th")
+      .map((i, el) => {
+        $(el).text();
+        return $(el).text();
+      })
+      .get();
+
+    console.log(headers);
+    // 提取表数据
+    const data = table
+      .find("tr")
+      .slice(1)
+      .map((_i, row) => {
+        const rowData = $(row)
+          .find("td")
+          .map((j, cell) => $(cell).text())
+          .get();
+        return Object.fromEntries(headers.map((header, index) => [header, rowData[index]]));
+      })
+      .get();
+
+    return data as AirQualityData[];
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    return [];
+  }
+}
