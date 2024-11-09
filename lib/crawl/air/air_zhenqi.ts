@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { load } from "cheerio";
 import { encode_param, Base64, encode_secret, decode_result } from "./crypto";
 
@@ -127,13 +128,18 @@ export async function air_quality_watch_point(
   }
 }
 
+// 定义数据结构
+interface AirQualityHistData {
+  // 假设这里会有多个字段，根据 API 返回的数据结构来定义
+  [key: string]: any;
+}
 export function air_quality_hist(
   city: string = "杭州",
   period: string = "day",
   start_date: string = "20190327",
   end_date: string = "20200427"
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Promise<any> {
+): Promise<AirQualityHistData[]> {
   return new Promise(async (resolve, reject) => {
     try {
       // 格式化日期
@@ -203,7 +209,7 @@ export function air_quality_hist(
       const tempDf = dataJson.result.data.rows.map((row: any) => ({
         ...row,
         time: row.time,
-      }));
+      })) as AirQualityHistData[];
 
       resolve(tempDf);
     } catch (error) {
