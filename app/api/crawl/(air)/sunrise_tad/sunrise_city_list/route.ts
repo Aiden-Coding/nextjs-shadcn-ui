@@ -1,8 +1,8 @@
 // app/api/hello/route.ts
-import { getSunriseCityList } from "@/lib/crawl/air/sunrise_tad";
+import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
 import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
-  const data = await getSunriseCityList();
+  const data = await sunrise_city_list();
   return NextResponse.json(data, { status: 200 });
 }
 
