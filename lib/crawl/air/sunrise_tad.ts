@@ -18,8 +18,7 @@ export async function sunrise_city_list(): Promise<string[]> {
 
     // 解析第一个表格
     const table1 = $("table").eq(1);
-    console.log($("table").eq(1).html());
-    const columns1 = table1.find("tr").eq(0).find("td").length / 3;
+    const columns1 = table1.find("tr").eq(1).find("td").length / 3;
     for (let i = 0; i < columns1; i++) {
       cityList = cityList.concat(
         table1
@@ -32,7 +31,7 @@ export async function sunrise_city_list(): Promise<string[]> {
 
     // 解析第二个表格
     const table2 = $("table").eq(2);
-    const columns2 = table2.find("tr").eq(0).find("td").length;
+    const columns2 = table2.find("tr").eq(1).find("td").length;
     for (let i = 0; i < columns2; i++) {
       cityList = cityList.concat(
         table2
