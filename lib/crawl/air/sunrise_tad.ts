@@ -50,7 +50,11 @@ export async function sunrise_city_list(): Promise<string[]> {
   }
 }
 
-async function sunrise_daily(date: string = "20240428", city: string = "beijing"): Promise<any> {
+export async function sunrise_daily(
+  date: string = "20240428",
+  city: string = "beijing"
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> {
   /**
    * 获取每日日出日落数据
    * @param date - 需要查询的日期, e.g., “20240428”
@@ -95,7 +99,7 @@ async function sunrise_daily(date: string = "20240428", city: string = "beijing"
   }
 }
 
-async function sunrise_monthly(
+export async function sunrise_monthly(
   date: string = "20240428",
   city: string = "beijing"
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

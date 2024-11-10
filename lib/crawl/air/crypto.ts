@@ -151,6 +151,7 @@ function core_md5(a: number[], b: number): number[] {
     g < a.length;
     g += 16
   )
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     (h = c),
       (i = d),
       (j = e),
