@@ -16,43 +16,46 @@ export function cn(...inputs: ClassValue[]) {
  * @returns 生成的随机密码
  * const password = generatePassword(12, true, true, true, true, "!@#$%");
  * 使用示例
- * console.log(passw
+ * console.log(password)
  */
-function generatePassword(length: number, 
-                          useUppercase: boolean = true, 
-                          useLowercase: boolean = true,
-                          useNumbers: boolean = true,
-                          useSpecialChars: boolean = false,
-                          excludeChars: string = ""): string {
+export function generatePassword(
+  length: number,
+  useUppercase: boolean = true,
+  useLowercase: boolean = true,
+  useNumbers: boolean = true,
+  useSpecialChars: boolean = false,
+  excludeChars: string = ""
+): string {
+  // 定义字符集
+  const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+  const numberChars = "0123456789";
+  const specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
-    // 定义字符集
-    const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-    const numberChars = "0123456789";
-    const specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+  // 根据选择构建字符集
+  let charSet = "";
+  if (useUppercase) charSet += uppercaseChars;
+  if (useLowercase) charSet += lowercaseChars;
+  if (useNumbers) charSet += numberChars;
+  if (useSpecialChars) charSet += specialChars;
 
-    // 根据选择构建字符集
-    let charSet = "";
-    if (useUppercase) charSet += uppercaseChars;
-    if (useLowercase) charSet += lowercaseChars;
-    if (useNumbers) charSet += numberChars;
-    if (useSpecialChars) charSet += specialChars;
+  // 移除排除的字符
+  charSet = charSet
+    .split("")
+    .filter((char) => !excludeChars.includes(char))
+    .join("");
 
-    // 移除排除的字符
-    charSet = charSet.split('').filter(char => !excludeChars.includes(char)).join('');
+  // 确保字符集非空
+  if (charSet.length === 0) {
+    throw new Error("Character set is empty after excluding specified characters.");
+  }
 
-    // 确保字符集非空
-    if (charSet.length === 0) {
-        throw new Error("Character set is empty after excluding specified characters.");
-    }
+  // 生成随机密码
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charSet.length);
+    password += charSet[randomIndex];
+  }
 
-    // 生成随机密码
-    let password = "";
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charSet.length);
-        password += charSet[randomIndex];
-    }
-
-    return password;
+  return password;
 }
-ord);
