@@ -1,6 +1,5 @@
 // lib/airQualityHebei.ts
 import axios from "axios";
-import * as cheerio from "cheerio";
 import { DateTime } from "luxon"; // 需要安装 luxon 用于日期处理
 
 interface AirQualityData {
@@ -21,11 +20,13 @@ export async function air_quality_hebei(symbol: string = ""): Promise<AirQuality
   try {
     const response = await axios.get(url, { params });
     const jsonData = response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const cityList = jsonData.cityPublishDatas.map((item: any) => item.CityName);
     const outerData: AirQualityData[] = [];
 
     for (let i = 1; i <= 6; i++) {
       const innerData: AirQualityData[] = jsonData.cityPublishDatas.map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (item: any, index: number) => ({
           city: cityList[index],
           date: new Date(item[`Date${i}`]),
