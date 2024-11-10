@@ -59,3 +59,16 @@ export function generatePassword(
 
   return password;
 }
+export function getCode(num: number = 6): string {
+  const str: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const codes: string[] = str.split("");
+  // If num is not provided, default to 6
+  num = num || 6;
+  let code: string = "";
+  for (let i: number = 0; i < num; i++) {
+    // Generate a random index between 0 and 51 (inclusive)
+    const randomIndex: number = Math.floor(Math.random() * 52);
+    code += codes[randomIndex];
+  }
+  return code;
+}
