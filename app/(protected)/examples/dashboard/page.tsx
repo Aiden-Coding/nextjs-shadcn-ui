@@ -15,13 +15,19 @@ import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-na
 import { connectToDatabase } from "@/lib/db";
 import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
 import { logger } from "@/lib/log";
+import { Logger } from "tslog";
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
 };
 
+// 创建一个 Logger 实例
+const log = new Logger({ name: "MyLogger" });
 export default async function DashboardPage() {
   const dd = await sunrise_city_list();
+
+  // 记录信息
+  log.info("This is an info message");
   logger.warn("hel:", dd);
   if (process.env.ENABLE_SQLITE === "true") {
     const db = connectToDatabase();
