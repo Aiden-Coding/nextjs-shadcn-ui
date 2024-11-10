@@ -18,6 +18,7 @@ export async function sunrise_city_list(): Promise<string[]> {
 
     // 解析第一个表格
     const table1 = $("table").eq(1);
+    console.log($("table").eq(1).html());
     const columns1 = table1.find("tr").eq(0).find("td").length / 3;
     for (let i = 0; i < columns1; i++) {
       cityList = cityList.concat(

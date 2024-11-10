@@ -3,7 +3,7 @@ import { load } from "cheerio";
 import { encode_param, Base64, encode_secret, decode_result } from "./crypto";
 
 import * as path from "path";
-import { loadAndExecuteJS } from "@/lib/utils";
+import { loadAndExecuteJS } from "@/lib/node-utils";
 const outcrypto_js_path = path.resolve(process.cwd(), "lib/crawl/air/outcrypto.js");
 
 // 定义数据结构
@@ -307,11 +307,13 @@ export async function air_quality_rank(date: string = ""): Promise<AirQualityDat
           .find("td")
           .map((j, cell) => $(cell).text())
           .get();
-        return Object.fromEntries(headers.map((header, index) => [header, rowData[index]]));
+        return Object.fromEntries(
+          headers.map((header, index) => [header, rowData[index]])
+        ) as AirQualityData;
       })
       .get();
 
-    return data as AirQualityData[];
+    return data;
   } catch (error) {
     console.error("Failed to fetch data:", error);
     return [];
