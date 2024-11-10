@@ -14,6 +14,7 @@ import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-na
 
 import { connectToDatabase } from "@/lib/db";
 import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
+import { logger } from "@/lib/log";
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   const dd = await sunrise_city_list();
-  console.log(dd);
+  logger.warn("hel:", dd);
   if (process.env.ENABLE_SQLITE === "true") {
     const db = connectToDatabase();
     const { name, email } = { name: "string", email: "string" };
