@@ -2,7 +2,7 @@
 import { load } from "cheerio";
 import { encode_param, Base64, encode_secret, decode_result } from "./crypto";
 
-import * as path from "path";
+import path from "path";
 import { loadAndExecuteJS } from "@/lib/node-utils";
 const outcrypto_js_path = path.resolve(process.cwd(), "lib/crawl/air/outcrypto.js");
 

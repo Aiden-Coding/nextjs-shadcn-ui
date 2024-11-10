@@ -1,6 +1,6 @@
 import path from "path";
 import Database from "better-sqlite3";
-import * as fs from "fs";
+import fs from "fs";
 
 let db: Database.Database | null = null;
 

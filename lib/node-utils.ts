@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import fs from "fs";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function loadAndExecuteJS(path_name: string, functionName: string, ...args: any[]) {
   const jsContent = fs.readFileSync(path_name, "utf-8");
