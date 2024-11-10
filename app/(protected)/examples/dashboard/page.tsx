@@ -13,12 +13,15 @@ import TeamSwitcher from "@/app/(protected)/examples/dashboard/components/team-s
 import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-nav";
 
 import { connectToDatabase } from "@/lib/db";
+import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
 };
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const dd = await sunrise_city_list();
+  console.log(dd);
   if (process.env.ENABLE_SQLITE === "true") {
     const db = connectToDatabase();
     const { name, email } = { name: "string", email: "string" };

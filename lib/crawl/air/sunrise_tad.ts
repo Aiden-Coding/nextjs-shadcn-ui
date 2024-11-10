@@ -1,7 +1,6 @@
 import axios from "axios";
 import { load } from "cheerio";
 import { parse } from "date-fns";
-import { format } from "date-fns";
 
 export async function sunrise_city_list(): Promise<string[]> {
   /**
