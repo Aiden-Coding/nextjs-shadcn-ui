@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
 
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
@@ -30,7 +28,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeProvider attribute="class" defaultTheme="system">
+      <ThemeProvider attribute="class" defaultTheme="light">
         <body className={cn("h-svh", `${geistSans.variable} ${geistMono.variable} antialiased`)}>
           <main className="flex flex-col h-svh w-svw">{children}</main>
         </body>
