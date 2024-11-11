@@ -28,7 +28,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeProvider attribute="class" defaultTheme="light">
+      <ThemeProvider attribute="class" defaultTheme="system">
         <body className={cn("h-svh", `${geistSans.variable} ${geistMono.variable} antialiased`)}>
           <main className="flex flex-col h-svh w-svw">{children}</main>
         </body>
