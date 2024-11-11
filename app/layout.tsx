@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,9 +30,11 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("h-svh", `${geistSans.variable} ${geistMono.variable} antialiased`)}>
-        <main className="flex flex-col h-svh w-svw">{children}</main>
-      </body>
+      <ThemeProvider attribute="class" defaultTheme="system">
+        <body className={cn("h-svh", `${geistSans.variable} ${geistMono.variable} antialiased`)}>
+          <main className="flex flex-col h-svh w-svw">{children}</main>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
