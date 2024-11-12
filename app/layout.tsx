@@ -5,6 +5,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
 import { PgliteDb } from "@/components/pglite-db";
+import { PgliteProvider } from "@/components/pglite-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,8 +32,9 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn("h-svh", `${geistSans.variable} ${geistMono.variable} antialiased`)}>
         <ThemeProvider attribute="class" defaultTheme="system">
-          <PgliteDb />
-          <main className="flex flex-col h-svh w-svw">{children}</main>
+          <PgliteProvider>
+            <main className="flex flex-col h-svh w-svw">{children}</main>
+          </PgliteProvider>
         </ThemeProvider>
       </body>
     </html>
