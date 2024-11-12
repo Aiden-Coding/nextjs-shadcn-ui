@@ -12,7 +12,7 @@ import React, {
 } from "react";
 
 // PgliteContextType
-interface PgliteContextType {
+export interface PgliteContextType {
   pglite: PGlite | undefined;
   setPglite: Dispatch<SetStateAction<PGlite | undefined>>;
 }
