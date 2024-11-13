@@ -10,3 +10,4 @@ export default async function Home() {
     redirect("/login");
   }
 }
+export const runtime = "edge";
