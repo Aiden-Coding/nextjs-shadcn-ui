@@ -14,7 +14,7 @@ import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-na
 export const runtime = "edge";
 // import { connectToDatabase } from "@/lib/db";
 import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
-import { logger } from "@/lib/log";
+// import { logger } from "@/lib/log";
 import { Logger } from "tslog";
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -28,7 +28,7 @@ export default async function DashboardPage() {
 
   // 记录信息
   log.info("This is an info message");
-  logger.warn("hel:", dd);
+  // logger.warn("hel:", dd);
   // if (process.env.ENABLE_SQLITE === "true") {
   //   const db = connectToDatabase();
   //   const { name, email } = { name: "string", email: "string" };
