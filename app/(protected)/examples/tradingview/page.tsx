@@ -1,6 +1,6 @@
 import { TVChartContainer } from "@/components/tv/tv";
 import { ResolutionString } from "@/public/charting_library/charting_library";
-
+export const runtime = "edge";
 export default function Home() {
   return (
     <div className="h-full">

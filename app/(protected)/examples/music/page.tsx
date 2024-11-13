@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
-
+export const runtime = "edge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
