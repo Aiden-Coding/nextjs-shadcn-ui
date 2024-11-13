@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { AccountForm } from "@/app/(protected)/examples/forms/account/account-form";
-
+export const runtime = "edge";
 export default function SettingsAccountPage() {
   return (
     <div className="space-y-6">
