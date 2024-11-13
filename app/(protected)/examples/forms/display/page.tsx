@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { DisplayForm } from "@/app/(protected)/examples/forms/display/display-form";
-export const runtime = "edge";
+
 export default function SettingsDisplayPage() {
   return (
     <div className="space-y-6">

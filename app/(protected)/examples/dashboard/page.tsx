@@ -11,7 +11,7 @@ import { RecentSales } from "@/app/(protected)/examples/dashboard/components/rec
 import { Search } from "@/app/(protected)/examples/dashboard/components/search";
 import TeamSwitcher from "@/app/(protected)/examples/dashboard/components/team-switcher";
 import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-nav";
-export const runtime = "edge";
+
 // import { connectToDatabase } from "@/lib/db";
 import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
 // import { logger } from "@/lib/log";

@@ -10,4 +10,3 @@ export async function POST(request: NextRequest) {
   const { name }: { name: string } = await request.json();
   return NextResponse.json({ message: `Hello, ${name}!` }, { status: 200 });
 }
-export const runtime = "edge";

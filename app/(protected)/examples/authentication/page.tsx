@@ -5,7 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { UserAuthForm } from "@/app/(protected)/examples/authentication/components/user-auth-form";
-export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "Authentication",
   description: "Authentication forms built using the components.",

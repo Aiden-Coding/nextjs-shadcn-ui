@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { Mail } from "@/app/(protected)/examples/mail/components/mail";
 import { accounts, mails } from "@/app/(protected)/examples/mail/data";
-export const runtime = "edge";
+
 export default function MailPage() {
   const layout = cookies().get("react-resizable-panels:layout:mail");
   const collapsed = cookies().get("react-resizable-panels:collapsed");

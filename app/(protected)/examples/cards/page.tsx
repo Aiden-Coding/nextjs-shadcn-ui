@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
-export const runtime = "edge";
+
 import { DemoCookieSettings } from "./components/cookie-settings";
 import { DemoCreateAccount } from "./components/create-account";
 import { DemoDatePicker } from "./components/date-picker";

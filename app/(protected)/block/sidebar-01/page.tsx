@@ -42,4 +42,3 @@ export default function Page() {
     </SidebarProvider>
   );
 }
-export const runtime = "edge";

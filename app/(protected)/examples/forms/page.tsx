@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { ProfileForm } from "@/app/(protected)/examples/forms/profile-form";
-export const runtime = "edge";
+
 export default function SettingsProfilePage() {
   return (
     <div className="space-y-6">

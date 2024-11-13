@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { CounterClockwiseClockIcon } from "@radix-ui/react-icons";
-export const runtime = "edge";
+
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Label } from "@/components/ui/label";

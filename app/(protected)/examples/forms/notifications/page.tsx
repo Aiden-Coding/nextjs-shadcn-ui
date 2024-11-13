@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { NotificationsForm } from "@/app/(protected)/examples/forms/notifications/notifications-form";
-export const runtime = "edge";
+
 export default function SettingsNotificationsPage() {
   return (
     <div className="space-y-6">
