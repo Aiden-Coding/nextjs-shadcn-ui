@@ -12,7 +12,7 @@ import { Search } from "@/app/(protected)/examples/dashboard/components/search";
 import TeamSwitcher from "@/app/(protected)/examples/dashboard/components/team-switcher";
 import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-nav";
 export const runtime = "edge";
-import { connectToDatabase } from "@/lib/db";
+// import { connectToDatabase } from "@/lib/db";
 import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
 import { logger } from "@/lib/log";
 import { Logger } from "tslog";
@@ -29,16 +29,16 @@ export default async function DashboardPage() {
   // 记录信息
   log.info("This is an info message");
   logger.warn("hel:", dd);
-  if (process.env.ENABLE_SQLITE === "true") {
-    const db = connectToDatabase();
-    const { name, email } = { name: "string", email: "string" };
-    const stmt = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-    const info = stmt.run(name, email);
-    console.log(info);
+  // if (process.env.ENABLE_SQLITE === "true") {
+  //   const db = connectToDatabase();
+  //   const { name, email } = { name: "string", email: "string" };
+  //   const stmt = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+  //   const info = stmt.run(name, email);
+  //   console.log(info);
 
-    const users = db.prepare("SELECT * FROM users").all();
-    console.log(users);
-  }
+  //   const users = db.prepare("SELECT * FROM users").all();
+  //   console.log(users);
+  // }
   return (
     <>
       <div className="md:hidden">
