@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { load } from "cheerio";
 import { encode_param, Base64, encode_secret, decode_result, hex_md5 } from "./crypto";
-
-import path from "path";
-import { loadAndExecuteJS } from "@/lib/node-utils";
-const outcrypto_js_path = path.resolve(process.cwd(), "lib/crawl/air/outcrypto.js");
+import { encode_param as ou_encode_param, decryptData } from "./outcrypto";
 
 // 定义数据结构
 interface AirQualityData {
@@ -189,7 +186,7 @@ export function air_quality_hist(
         "Content-Type": "application/x-www-form-urlencoded",
       };
 
-      const params = { param: loadAndExecuteJS(outcrypto_js_path, "encode_param", need) };
+      const params = { param: ou_encode_param(need) };
 
       const response = await fetch(url, {
         method: "POST",
@@ -198,7 +195,7 @@ export function air_quality_hist(
       });
 
       const data1 = await response.text();
-      const temp_text = loadAndExecuteJS(outcrypto_js_path, "decryptData", data1);
+      const temp_text = decryptData(data1);
       const dataJson = JSON.parse(new Base64().decode(temp_text));
 
       // 转换为类似 pandas DataFrame 的结构
