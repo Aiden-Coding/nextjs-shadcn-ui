@@ -9,9 +9,7 @@ const nextConfig = {
         ignoreDuringBuilds: true,
     },
     reactStrictMode: false,
-    experimental: {
-        runtime: 'edge',
-    },
+
 };
 
 export default nextConfig;
