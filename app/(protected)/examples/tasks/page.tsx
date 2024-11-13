@@ -19,7 +19,8 @@ async function getTasks() {
   //   path.join(process.cwd(), "app//(protected)/examples/tasks/data/tasks.json")
   // );
 
-  const tasks = JSON.parse(data.toString());
+  // const tasks = JSON.parse(data.toString());
+  const tasks = data;
 
   return z.array(taskSchema).parse(tasks);
 }
