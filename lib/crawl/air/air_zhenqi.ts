@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { load } from "cheerio";
-import { encode_param, Base64, encode_secret, decode_result } from "./crypto";
+import { encode_param, Base64, encode_secret, decode_result, hex_md5 } from "./crypto";
 
 import path from "path";
 import { loadAndExecuteJS } from "@/lib/node-utils";
@@ -163,11 +163,7 @@ export function air_quality_hist(
         0
       ).replace(/\\"/g, '"');
 
-      const secret = loadAndExecuteJS(
-        outcrypto_js_path,
-        "hex_md5",
-        app_id + method + timestamp + "WEB" + p_text
-      );
+      const secret = hex_md5(app_id + method + timestamp + "WEB" + p_text);
       const payload = {
         appId: app_id,
         method: method,
