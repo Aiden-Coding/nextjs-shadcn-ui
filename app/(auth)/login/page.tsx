@@ -7,3 +7,4 @@ const LoginPage = ({ searchParams }: { searchParams: { verified: string; error: 
   return <LoginForm isVerified={isVerified} OAuthAccountNotLinked={OAuthAccountNotLinked} />;
 };
 export default LoginPage;
+export const runtime = "edge";

@@ -4,3 +4,4 @@ const RegisterPage = () => {
   return <RegisterForm />;
 };
 export default RegisterPage;
+export const runtime = "edge";
