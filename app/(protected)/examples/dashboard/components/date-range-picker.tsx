@@ -30,14 +30,10 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (pglite) {
-      setIsReady(true);
-      console.log("i pg suc");
-    }
-  }, [pglite]);
-  useEffect(() => {
     const dff = async () => {
       if (pglite) {
+        setIsReady(true);
+        console.log("i pg suc");
         const d = await pglite.query("select 'Hello world' as message;");
         console.log("low");
         console.log(d.rows);
