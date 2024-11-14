@@ -11,7 +11,6 @@ import { loginSchema } from "./lib/zod";
 
 // Notice this is only an object, not a full Auth.js instance
 export default {
-  secret: process.env.AUTH_SECRET,
   providers: [
     // Google,
     // GitHub,
