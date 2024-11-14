@@ -9,11 +9,19 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PgliteContext, PgliteContextType } from "@/components/pglite-provider";
 
 export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTMLDivElement>) {
   const { pglite } = useContext(PgliteContext) as PgliteContextType;
+
+  const [isReady, setIsReady] = useState(false);
+  React.useEffect(() => {
+    if (pglite) {
+      setIsReady(true);
+      console.log("i pg suc");
+    }
+  }, [pglite]);
   React.useEffect(() => {
     const dff = async () => {
       if (pglite) {
