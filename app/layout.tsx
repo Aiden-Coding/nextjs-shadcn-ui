@@ -4,7 +4,6 @@ import "./globals.css";
 
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
-import { PgliteDb } from "@/components/pglite-db";
 import { PgliteProvider } from "@/components/pglite-provider";
 
 const geistSans = localFont({
