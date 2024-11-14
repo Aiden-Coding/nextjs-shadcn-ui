@@ -38,6 +38,7 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
         const d = await pglite.query("select 'Hello world' as message;");
         console.log("low");
         console.log(d.rows);
+        const hel = "wewwwww";
         const d1 = await pglite.exec(`
             CREATE TABLE IF NOT EXISTS todo (
               id SERIAL PRIMARY KEY,
@@ -47,7 +48,7 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
             INSERT INTO todo (task, done) VALUES ('Install PGlite from NPM', true);
             INSERT INTO todo (task, done) VALUES ('Load PGlite', true);
             INSERT INTO todo (task, done) VALUES ('Create a table', true);
-            INSERT INTO todo (task, done) VALUES ('Insert some data', true);
+            INSERT INTO todo (task, done) VALUES ('${hel}', true);
             INSERT INTO todo (task) VALUES ('Update a task');
           `);
         console.log(d1);
