@@ -13,7 +13,6 @@ import TeamSwitcher from "@/app/(protected)/examples/dashboard/components/team-s
 import { UserNav } from "@/app/(protected)/examples/dashboard/components/user-nav";
 
 // import { connectToDatabase } from "@/lib/db";
-import { sunrise_city_list } from "@/lib/crawl/air/sunrise_tad";
 // import { logger } from "@/lib/log";
 import { Logger } from "tslog";
 export const metadata: Metadata = {
@@ -24,8 +23,6 @@ export const metadata: Metadata = {
 // 创建一个 Logger 实例
 const log = new Logger({ name: "MyLogger" });
 export default async function DashboardPage() {
-  const dd = await sunrise_city_list();
-
   // 记录信息
   log.info("This is an info message");
   // logger.warn("hel:", dd);
