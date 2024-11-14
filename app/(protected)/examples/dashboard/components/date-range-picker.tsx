@@ -40,22 +40,23 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
         console.log(d.rows);
         const hel = "wewwwww";
         const d1 = await pglite.exec(`
-            CREATE TABLE IF NOT EXISTS todo (
+            CREATE TABLE IF NOT EXISTS user_den (
               id SERIAL PRIMARY KEY,
-              task TEXT,
-              done BOOLEAN DEFAULT false
+              name TEXT,
+              email TEXT
             );
-            INSERT INTO todo (task, done) VALUES ('Install PGlite from NPM', true);
-            INSERT INTO todo (task, done) VALUES ('Load PGlite', true);
-            INSERT INTO todo (task, done) VALUES ('Create a table', true);
-            INSERT INTO todo (task, done) VALUES ('${hel}', true);
-            INSERT INTO todo (task) VALUES ('Update a task');
+            INSERT INTO user_den (name, email) VALUES ('Install PGlite from NPM', true);
+            INSERT INTO user_den (name, email) VALUES ('${hel}', true);
           `);
         console.log(d1);
 
-        const d2 = await pglite.query("select * from  todo;");
+        // const d2 = await pglite.query("select * from  todo;");
+        // console.log("low");
+        // console.log(d2.rows);
+
+        const de = await pglite.query("select * from  user_den;");
         console.log("low");
-        console.log(d2.rows);
+        console.log(de.rows);
       } else {
         console.log("no pg");
       }
@@ -93,11 +94,22 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
               <AlertDialogTitle>
                 <Progress value={progress} max={100} />
               </AlertDialogTitle>
+              <AlertDialogDescription>loading</AlertDialogDescription>
             </AlertDialogHeader>
           </AlertDialogContent>
         </AlertDialog>
       ) : (
         <div className={cn("grid gap-2", className)}>
+          <AlertDialog defaultOpen={true}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  <Progress value={progress} max={100} />
+                </AlertDialogTitle>
+                <AlertDialogDescription>loading</AlertDialogDescription>
+              </AlertDialogHeader>
+            </AlertDialogContent>
+          </AlertDialog>
           <Popover>
             <PopoverTrigger asChild>
               <Button
