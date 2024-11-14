@@ -38,6 +38,23 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
         const d = await pglite.query("select 'Hello world' as message;");
         console.log("low");
         console.log(d.rows);
+        const d1 = await pglite.exec(`
+            CREATE TABLE IF NOT EXISTS todo (
+              id SERIAL PRIMARY KEY,
+              task TEXT,
+              done BOOLEAN DEFAULT false
+            );
+            INSERT INTO todo (task, done) VALUES ('Install PGlite from NPM', true);
+            INSERT INTO todo (task, done) VALUES ('Load PGlite', true);
+            INSERT INTO todo (task, done) VALUES ('Create a table', true);
+            INSERT INTO todo (task, done) VALUES ('Insert some data', true);
+            INSERT INTO todo (task) VALUES ('Update a task');
+          `);
+        console.log(d1);
+
+        const d2 = await pglite.query("select * from  todo;");
+        console.log("low");
+        console.log(d2.rows);
       } else {
         console.log("no pg");
       }
