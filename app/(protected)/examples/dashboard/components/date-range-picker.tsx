@@ -20,10 +20,12 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
         const d = await pglite.query("select 'Hello world' as message;");
         console.log("low");
         console.log(d.rows);
+      } else {
+        console.log("no pg");
       }
     };
     dff();
-  }, [pglite]);
+  }, []);
 
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2023, 0, 20),
