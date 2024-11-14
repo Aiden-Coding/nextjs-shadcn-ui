@@ -24,6 +24,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import { Progress } from "@/components/ui/progress";
 export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTMLDivElement>) {
   const { pglite } = useContext(PgliteContext) as PgliteContextType;
 
@@ -49,25 +50,32 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
     to: addDays(new Date(2023, 0, 20), 20),
   });
 
+  const [progress, setProgress] = React.useState(13);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 100) {
+          clearInterval(interval); // 达到100%后停止计时器
+          return 100;
+        }
+        return prevProgress + 5; // 每隔一定时间增加5%
+      });
+    }, 500);
+
+    return () => clearInterval(interval); // 清除计时器以防止内存泄漏
+  }, []);
+
   return (
     <>
       {!isReady ? (
         <AlertDialog defaultOpen={true}>
-          <AlertDialogTrigger asChild>
-            <Button variant="outline">Show Dialog</Button>
-          </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your account and remove
-                your data from our servers.
-              </AlertDialogDescription>
+              <AlertDialogTitle>
+                <Progress value={progress} max={100} />
+              </AlertDialogTitle>
             </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
-            </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
       ) : (
