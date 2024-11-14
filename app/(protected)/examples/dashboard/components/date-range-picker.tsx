@@ -64,12 +64,12 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
     dff();
   }, [pglite]);
 
-  const [date, setDate] = React.useState<DateRange | undefined>({
+  const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(2023, 0, 20),
     to: addDays(new Date(2023, 0, 20), 20),
   });
 
-  const [progress, setProgress] = React.useState(13);
+  const [progress, setProgress] = useState(13);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -85,9 +85,25 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
     return () => clearInterval(interval); // 清除计时器以防止内存泄漏
   }, []);
 
+  const [isOpen, setIsOpen] = useState(true);
+
+  // 打开对话框的函数
+  const openDialog = () => setIsOpen(true);
+
+  // 关闭对话框的函数
+  const closeDialog = () => setIsOpen(false);
+
+  useEffect(() => {
+    console.log(isOpen, progress, "Dial2og should be closed now");
+    if (isOpen && progress >= 100) {
+      console.log("Dialog should be closed now");
+      closeDialog();
+    }
+    console.log("Dial2og should be closed now");
+  }, [isOpen, progress]);
   return (
     <>
-      {!isReady ? (
+      {/* {!isReady ? (
         <AlertDialog defaultOpen={true}>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -98,55 +114,55 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
             </AlertDialogHeader>
           </AlertDialogContent>
         </AlertDialog>
-      ) : (
-        <div className={cn("grid gap-2", className)}>
-          <AlertDialog defaultOpen={true}>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  <Progress value={progress} max={100} />
-                </AlertDialogTitle>
-                <AlertDialogDescription>loading</AlertDialogDescription>
-              </AlertDialogHeader>
-            </AlertDialogContent>
-          </AlertDialog>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                id="date"
-                variant={"outline"}
-                className={cn(
-                  "w-[260px] justify-start text-left font-normal",
-                  !date && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date?.from ? (
-                  date.to ? (
-                    <>
-                      {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
-                    </>
-                  ) : (
-                    format(date.from, "LLL dd, y")
-                  )
+      ) : ( */}
+      <div className={cn("grid gap-2", className)}>
+        <AlertDialog defaultOpen={true} open={isOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                <Progress value={progress} max={100} />
+              </AlertDialogTitle>
+              <AlertDialogDescription>loading</AlertDialogDescription>
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialog>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              id="date"
+              variant={"outline"}
+              className={cn(
+                "w-[260px] justify-start text-left font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {date?.from ? (
+                date.to ? (
+                  <>
+                    {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
+                  </>
                 ) : (
-                  <span>Pick a date</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="end">
-              <Calendar
-                initialFocus
-                mode="range"
-                defaultMonth={date?.from}
-                selected={date}
-                onSelect={setDate}
-                numberOfMonths={2}
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-      )}
+                  format(date.from, "LLL dd, y")
+                )
+              ) : (
+                <span>Pick a date</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="end">
+            <Calendar
+              initialFocus
+              mode="range"
+              defaultMonth={date?.from}
+              selected={date}
+              onSelect={setDate}
+              numberOfMonths={2}
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
+      {/* )} */}
     </>
   );
 }
