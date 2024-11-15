@@ -33,7 +33,13 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
   useEffect(() => {
     const dff = async () => {
       if (pglite) {
-        setIsReady(true);
+        const interval = setTimeout(() => {
+          if (interval) {
+            setIsReady(true);
+            clearTimeout(interval);
+          }
+        }, 500);
+
         console.log("i pg suc");
         const d = await pglite.query("select 'Hello world' as message;");
         console.log("low");
@@ -62,7 +68,7 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
       }
     };
     dff();
-  }, [pglite]);
+  }, [pglite, isReady]);
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(2023, 0, 20),
@@ -72,51 +78,30 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
   const [progress, setProgress] = useState(13);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          clearInterval(interval); // 达到100%后停止计时器
-          return 100;
-        }
-        return prevProgress + 5; // 每隔一定时间增加5%
-      });
-    }, 500);
-
-    return () => clearInterval(interval); // 清除计时器以防止内存泄漏
-  }, []);
-
-  const [isOpen, setIsOpen] = useState(true);
-
-  // 打开对话框的函数
-  const openDialog = () => setIsOpen(true);
-
-  // 关闭对话框的函数
-  const closeDialog = () => setIsOpen(false);
-
-  useEffect(() => {
-    console.log(isOpen, progress, "Dial2og should be closed now");
-    if (isOpen && progress >= 100) {
-      console.log("Dialog should be closed now");
-      closeDialog();
+    let interval: NodeJS.Timeout;
+    if (!isReady) {
+      interval = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress >= 100 && interval) {
+            clearInterval(interval); // 达到100%后停止计时器
+            return 100;
+          }
+          return prevProgress + 5; // 每隔一定时间增加5%
+        });
+      }, 500);
     }
-    console.log("Dial2og should be closed now");
-  }, [isOpen, progress]);
+
+    return () => {
+      if (interval) {
+        clearInterval(interval); // 清除计时器以防止内存泄漏
+      }
+    };
+  }, [isReady, progress]);
+
   return (
     <>
-      {/* {!isReady ? (
-        <AlertDialog defaultOpen={true}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                <Progress value={progress} max={100} />
-              </AlertDialogTitle>
-              <AlertDialogDescription>loading</AlertDialogDescription>
-            </AlertDialogHeader>
-          </AlertDialogContent>
-        </AlertDialog>
-      ) : ( */}
       <div className={cn("grid gap-2", className)}>
-        <AlertDialog defaultOpen={true} open={isOpen}>
+        <AlertDialog defaultOpen={true} open={!isReady}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>
@@ -162,7 +147,6 @@ export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTML
           </PopoverContent>
         </Popover>
       </div>
-      {/* )} */}
     </>
   );
 }
