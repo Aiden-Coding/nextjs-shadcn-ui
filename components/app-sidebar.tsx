@@ -125,7 +125,7 @@ export function AppSidebar() {
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup className="p-0">
             <SidebarGroupLabel asChild>
-              <CollapsibleTrigger className="p-0 !font-bold !text-sidebar-primary">
+              <CollapsibleTrigger className="p-0 !font-bold !text-sidebar-primary !text-lg">
                 examples
                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
               </CollapsibleTrigger>
@@ -194,15 +194,8 @@ export function AppSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
-          <SidebarGroupAction title="Add Project">
+          <SidebarGroupAction title="Add Project" onClick={() => console.log("helo")}>
             <Plus /> <span className="sr-only">Add Project</span>
-          </SidebarGroupAction>
-          <SidebarGroupContent />
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Projectws</SidebarGroupLabel>
-          <SidebarGroupAction title="Add Project">
-            <Plus /> <span className="sr-only">Addw Project</span>
           </SidebarGroupAction>
           <SidebarGroupContent />
         </SidebarGroup>
