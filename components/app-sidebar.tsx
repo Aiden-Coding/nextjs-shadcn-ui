@@ -1,3 +1,4 @@
+"use client";
 import { Calendar, ChevronDown, Home, Inbox, Plus, Search, Settings } from "lucide-react";
 import { ChevronUp, User2 } from "lucide-react";
 import Link from "next/link";
@@ -17,6 +18,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarGroupAction,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import {
   DropdownMenu,
@@ -53,57 +56,50 @@ const items = [
     url: "#",
     icon: Settings,
   },
+];
+const examples = [
   {
     title: "authentication",
     url: "/examples/authentication",
-    icon: Settings,
   },
   {
     title: "cards",
     url: "/examples/cards",
-    icon: Settings,
   },
   {
     title: "dashboard",
     url: "/examples/dashboard",
-    icon: Settings,
   },
   {
     title: "forms",
     url: "/examples/forms",
-    icon: Settings,
   },
   {
     title: "mail",
     url: "/examples/mail",
-    icon: Settings,
   },
   {
     title: "music",
     url: "/examples/music",
-    icon: Settings,
   },
   {
     title: "playground",
     url: "/examples/playground",
-    icon: Settings,
   },
   {
     title: "tasks",
     url: "/examples/tasks",
-    icon: Settings,
   },
   {
     title: "tradingview",
     url: "/examples/tradingview",
-    icon: Settings,
   },
 ];
 export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader />
-      <SidebarHeader>
+      {/* <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
@@ -124,10 +120,36 @@ export function AppSidebar() {
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+      </SidebarHeader> */}
+      <SidebarContent className="gap-0">
+        <Collapsible defaultOpen className="group/collapsible">
+          <SidebarGroup className="p-0">
+            <SidebarGroupLabel asChild>
+              <CollapsibleTrigger className="p-0 !font-bold !text-sidebar-primary">
+                examples
+                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu className="gap-0">
+                  {examples.map((item) => (
+                    <SidebarMenuItem key={item.title} className="text-lg font-bold">
+                      <SidebarMenuButton asChild>
+                        <Link href={item.url} className="!p-0 !pl-4 !h-5">
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
+
+        <SidebarGroup className="p-0">
+          {/* <SidebarGroupLabel>Application</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -142,7 +164,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
+        {/* 
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup>
             <SidebarGroupLabel asChild>
@@ -168,12 +190,19 @@ export function AppSidebar() {
               </SidebarGroupContent>
             </CollapsibleContent>
           </SidebarGroup>
-        </Collapsible>
+        </Collapsible> */}
 
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarGroupAction title="Add Project">
             <Plus /> <span className="sr-only">Add Project</span>
+          </SidebarGroupAction>
+          <SidebarGroupContent />
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Projectws</SidebarGroupLabel>
+          <SidebarGroupAction title="Add Project">
+            <Plus /> <span className="sr-only">Addw Project</span>
           </SidebarGroupAction>
           <SidebarGroupContent />
         </SidebarGroup>
