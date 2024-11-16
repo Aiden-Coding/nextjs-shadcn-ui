@@ -28,89 +28,47 @@ import { Progress } from "@/components/ui/progress";
 export function CalendarDateRangePicker({ className }: React.HTMLAttributes<HTMLDivElement>) {
   const { pglite } = useContext(PgliteContext) as PgliteContextType;
 
-  const [isReady, setIsReady] = useState(false);
-
   useEffect(() => {
     const dff = async () => {
       if (pglite) {
-        const interval = setTimeout(() => {
-          if (interval) {
-            setIsReady(true);
-            clearTimeout(interval);
-          }
-        }, 500);
-
         console.log("i pg suc");
-        const d = await pglite.query("select 'Hello world' as message;");
-        console.log("low");
-        console.log(d.rows);
-        const hel = "wewwwww";
-        const d1 = await pglite.exec(`
-            CREATE TABLE IF NOT EXISTS user_den (
-              id SERIAL PRIMARY KEY,
-              name TEXT,
-              email TEXT
-            );
-            INSERT INTO user_den (name, email) VALUES ('Install PGlite from NPM', true);
-            INSERT INTO user_den (name, email) VALUES ('${hel}', true);
-          `);
-        console.log(d1);
+        // const d = await pglite.query("select 'Hello world' as message;");
+        // console.log("low");
+        // console.log(d.rows);
+        // const hel = "wewwwww";
+        // const d1 = await pglite.exec(`
+        //     CREATE TABLE IF NOT EXISTS user_den (
+        //       id SERIAL PRIMARY KEY,
+        //       name TEXT,
+        //       email TEXT
+        //     );
+        //     INSERT INTO user_den (name, email) VALUES ('Install PGlite from NPM', true);
+        //     INSERT INTO user_den (name, email) VALUES ('${hel}', true);
+        //   `);
+        // console.log(d1);
 
         // const d2 = await pglite.query("select * from  todo;");
         // console.log("low");
         // console.log(d2.rows);
 
-        const de = await pglite.query("select * from  user_den;");
-        console.log("low");
-        console.log(de.rows);
+        // const de = await pglite.query("select * from  user_den;");
+        // console.log("low");
+        // console.log(de.rows);
       } else {
         console.log("no pg");
       }
     };
     dff();
-  }, [pglite, isReady]);
+  }, [pglite]);
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(2023, 0, 20),
     to: addDays(new Date(2023, 0, 20), 20),
   });
 
-  const [progress, setProgress] = useState(13);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (!isReady) {
-      interval = setInterval(() => {
-        setProgress((prevProgress) => {
-          if (prevProgress >= 100 && interval) {
-            clearInterval(interval); // 达到100%后停止计时器
-            return 100;
-          }
-          return prevProgress + 5; // 每隔一定时间增加5%
-        });
-      }, 500);
-    }
-
-    return () => {
-      if (interval) {
-        clearInterval(interval); // 清除计时器以防止内存泄漏
-      }
-    };
-  }, [isReady, progress]);
-
   return (
     <>
       <div className={cn("grid gap-2", className)}>
-        <AlertDialog defaultOpen={true} open={!isReady}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                <Progress value={progress} max={100} />
-              </AlertDialogTitle>
-              <AlertDialogDescription>loading</AlertDialogDescription>
-            </AlertDialogHeader>
-          </AlertDialogContent>
-        </AlertDialog>
         <Popover>
           <PopoverTrigger asChild>
             <Button
